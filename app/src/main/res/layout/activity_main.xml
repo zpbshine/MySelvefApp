@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <!-- 主界面 -->
+
+    <FrameLayout
+        android:id="@+id/contanierMain"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider_color"/>
+    <RadioGroup
+        android:id="@+id/radioGrop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:orientation="horizontal"
+        >
+
+        <RadioButton
+            android:id="@+id/main_home"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:drawableTop="@drawable/bottom_nav_home_btn"
+            android:gravity="center"
+            android:paddingLeft="0dp"
+            android:text="首页"
+            android:textSize="12sp"
+            android:textColor="@color/tab_btn_txt" />
+
+        <RadioButton
+            android:id="@+id/main_tuan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/bottom_nav_cart_btn"
+            android:gravity="center"
+            android:paddingLeft="0dp"
+            android:text="购物车"
+            android:textSize="12sp"
+            android:textColor="@color/tab_btn_txt" />
+
+        <RadioButton
+            android:id="@+id/main_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/bottom_nav_order_btn"
+            android:gravity="center"
+            android:paddingLeft="0dp"
+            android:text="订单"
+            android:textSize="12sp"
+            android:textColor="@color/tab_btn_txt" />
+
+        <RadioButton
+            android:id="@+id/main_my"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/bottom_nav_user_btn"
+            android:gravity="center"
+            android:paddingLeft="0dp"
+            android:text="我的"
+            android:textSize="12sp"
+            android:textColor="@color/tab_btn_txt" />
+    </RadioGroup>
+</LinearLayout>

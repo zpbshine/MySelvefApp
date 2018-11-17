@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="background_color">#F1F1F1</color>
+	<color name="background_navcolor">#F8953A</color>
+	<color name="background_tab">#F8F6F7</color>
+	<color name="background_line">#E8E8E8</color>
+	<color name="background_gray">#E5E5E5</color>
+	<color name="pressed_color">#FFFFFF</color>
+	<color name="view_divider_color">#DEDEDE</color>
+	<color name="Text_gray">#888888</color>
+	<color name="list_divider_color">#DADADA</color>
+	<color name="navpage">#FFE1E8EB</color>
+	<color name="TextColor">#424242</color>
+	<color name="app_navcolor">#fbf9fa</color>
+	
+	<color name="bottom_nav_txt_color_select">#82AE32</color>
+    <color name="bottom_nav_txt_color_normal">#797979</color>
+    <color name="bottom_nav_bg_color">#2f333f</color>
+
+	<!--扫描框-->
+	<color name="result_view">#b0000000</color>
+	<color name="viewfinder_mask">#60000000</color>
+	<color name="possible_result_points">#c0ffff00</color>
+	<color name="class_price">#ff811c</color>
+	<color name="divider_color">#d6d6d6</color>
+</resources>

@@ -1,0 +1,16 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+    <!-- 首页顶部tab导航 -->
+    <style name="IndexTab" parent="Widget.Design.TabLayout" >
+        <item name="tabIndicatorColor">@color/bottom_nav_txt_color_select</item>
+        <item name="tabTextColor">@color/TextColor</item>
+        <item name="tabSelectedTextColor">@color/bottom_nav_txt_color_select</item>
+        <item name="tabBackground">@color/background_color</item>
+        <item name="tabIndicatorHeight">2dp</item>
+    </style>
+
+</resources>

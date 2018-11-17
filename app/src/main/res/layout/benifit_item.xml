@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp">
+    <TextView
+        android:id="@+id/tv_bebifit_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="内衣店"
+        android:textSize="16sp"
+        android:textColor="@color/Text_gray"/>
+    <TextView
+        android:id="@+id/tv_benifit_content"
+        android:layout_marginTop="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="降价内衣"
+        android:textSize="18sp"
+        android:textColor="@color/TextColor"/>
+    <LinearLayout
+        android:layout_marginTop="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tv_benifit_oldprice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="原价 : 30/元"/>
+        <TextView
+            android:id="@+id/tv_benifit_nowprice"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="现价 : 10/元"
+            android:textSize="16sp"
+            android:textColor="@color/bottom_nav_txt_color_select"/>
+    </LinearLayout>
+
+</LinearLayout>
