@@ -5,5 +5,5 @@ package com.example.administrator.myselvefapp.bean;
  */
 
 public class UserBean {
-
+public String usatest="0";
 }

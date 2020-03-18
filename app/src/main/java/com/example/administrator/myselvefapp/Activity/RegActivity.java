@@ -1,6 +1,12 @@
 package com.example.administrator.myselvefapp.Activity;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -26,13 +32,18 @@ public class RegActivity extends BaseActivity implements View.OnClickListener {
     private EditText etRegPhone, etRegPwd;
     private TextView tvReg;
     private ImageView ivDelPhone, ivDelPwd;
+    private static String test ;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public int getViewLayout() {
         return R.layout.activity_reg;
     }
-
-    @Override
+@Override
     public void initView() {
         etRegPhone = (EditText) findViewById(R.id.et_reg_phone);
         etRegPwd = (EditText) findViewById(R.id.et_reg_pwd);
@@ -40,9 +51,15 @@ public class RegActivity extends BaseActivity implements View.OnClickListener {
         ivDelPhone = (ImageView) findViewById(R.id.iv_reg_delPhone);
         ivDelPwd = (ImageView) findViewById(R.id.iv_reg_delPwd);
 
+
         ivDelPhone.setOnClickListener(this);
         ivDelPwd.setOnClickListener(this);
         tvReg.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -56,6 +73,8 @@ public class RegActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.tv_reg:
                 //访问注册接口
+               // myApp.testif = "no";
+                //showWaitingDialog();
                 String phone = etRegPhone.getText().toString();
                 String pwd = etRegPwd.getText().toString();
                 if (!TextUtils.isEmpty(phone) && !TextUtils.isEmpty(pwd)) {
@@ -95,4 +114,6 @@ public class RegActivity extends BaseActivity implements View.OnClickListener {
             break;
         }
     }
+
+
 }

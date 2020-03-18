@@ -24,7 +24,7 @@ public class Page1Fragment extends BaseFragment{
     private ViewPager vp_index;
 
     private  String[]  TITLES={"特惠","新闻","新政","交友"};
-    private  Fragment[]   FRAGMENTS=new Fragment[]{new BenefitFragment(),new BenefitFragment(),new BenefitFragment(),new BenefitFragment()};
+    private  Fragment[]   FRAGMENTS=new Fragment[]{new BenefitFragment(),new Benefit1Fragment(),new Benefit2Fragment(),new Benefit3Fragment()};
 
 
     @Nullable

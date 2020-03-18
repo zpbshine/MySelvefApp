@@ -1,8 +1,11 @@
 package com.example.administrator.myselvefapp.Activity;
 
+import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -12,6 +15,9 @@ import com.example.administrator.myselvefapp.fragment.Page1Fragment;
 import com.example.administrator.myselvefapp.fragment.Page2Fragment;
 import com.example.administrator.myselvefapp.fragment.Page3Fragment;
 import com.example.administrator.myselvefapp.fragment.Page4Fragment;
+import com.example.administrator.myselvefapp.service.GuardService;
+import com.example.administrator.myselvefapp.service.JobWakeUpService;
+import com.example.administrator.myselvefapp.service.StepService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +48,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         radioButton = (RadioButton) findViewById(R.id.main_home);
         radioGroup.setOnCheckedChangeListener(this);
         initTab();
+
     }
     private void initTab() {
         page1Fragment=new Page1Fragment();
@@ -113,5 +120,25 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
         }
         switchFragments(fragments.get(position));
+    }
+
+    @Override
+    public void initData() {
+        //这里测试一下service保活
+        startAllServices();
+    }
+
+    /**
+     * 开启所有Service
+     */
+    private void startAllServices()
+    {
+        System.out.println("startAllServices=======");
+        startService(new Intent(this, StepService.class));
+        startService(new Intent(this, GuardService.class));
+        if(Build.VERSION.SDK_INT >=Build.VERSION_CODES.LOLLIPOP) {
+            //版本必须大于5.0
+            startService(new Intent(this, JobWakeUpService.class));
+        }
     }
 }

@@ -9,6 +9,7 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -31,5 +32,11 @@ dependencies {
     compile files('libs/gson.jar')
     compile 'com.ashokvarma.android:bottom-navigation-bar:0.9.5'
     compile 'com.android.support:design:+'
+    compile 'com.liulishuo.filedownloader:library:1.7.6'
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    // Retrofit库
+    compile 'com.squareup.okhttp3:okhttp:3.1.2'
+    // Okhttp库
+    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
 
 }

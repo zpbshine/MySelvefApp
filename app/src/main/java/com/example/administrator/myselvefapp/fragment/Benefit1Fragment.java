@@ -17,7 +17,6 @@ import com.google.gson.reflect.TypeToken;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
-
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -32,7 +31,7 @@ import okhttp3.Call;
  * 优惠页面
  */
 
-public class BenefitFragment extends BaseFragment {
+public class Benefit1Fragment extends BaseFragment {
     private View view;
     private ListView listView;
     private Gson gson;
@@ -44,7 +43,7 @@ public class BenefitFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.benefit_fragment,null);
-        System.out.println("============好多次??");
+
         intView();
         intData();
         return view;
@@ -84,9 +83,13 @@ public class BenefitFragment extends BaseFragment {
                     public void onResponse(String response, int id) {
 
                         String json = response.toString();
-                        System.out.println("数据======"+json);
+                        try {
+                            JSONArray jsonArray = new JSONArray(json);
+                            System.out.println(jsonArray.length());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
-                        //JSONArray jsonArray = new JSONArray(json);
                         if (gson == null){
                             gson = new Gson();
                         }

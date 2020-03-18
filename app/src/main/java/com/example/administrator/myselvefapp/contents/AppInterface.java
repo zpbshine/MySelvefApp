@@ -5,7 +5,7 @@ package com.example.administrator.myselvefapp.contents;
  */
 
 public class AppInterface {
-    public static String BASE_URL = "http://192.168.1.104:8080/MyFirstApp";
+    public static String BASE_URL = "http://192.168.3.6:8080/MyFirstApp";
     //登录
     public static String USER_LOGIN = BASE_URL+"/servlet/LoginServlet";
     //注册

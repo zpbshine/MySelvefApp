@@ -161,5 +161,41 @@
             android:textColor="@color/forget_pwd_btn_txt"
             android:textSize="13sp" />
     </RelativeLayout>
+    <SeekBar
+        android:id="@+id/sb_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:maxHeight="8.0dip"
+        android:minHeight="8.0dip"
+        android:paddingLeft="16.0dip"
+        android:paddingRight="16.0dip"
+        android:progressDrawable="@drawable/po_seekbar"
+        android:thumb="@mipmap/drag"/>
+    <TextView
+        android:id="@+id/tv_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="100%"
+        android:layout_gravity="center_horizontal"/>
+
+    <Button
+        android:id="@+id/btn_download"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="下载图片到本地"/>
+
+    <Button
+        android:id="@+id/btn_show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="显示图片"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/iv"/>
 
 </LinearLayout>
