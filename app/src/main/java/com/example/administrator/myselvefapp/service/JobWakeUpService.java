@@ -38,6 +38,12 @@ public class JobWakeUpService extends JobService {
     }
 
     @Override
+    public void onDestroy() {
+        System.out.println("JobWakeUpService===onDestroy");
+        super.onDestroy();
+    }
+
+    @Override
     public boolean onStartJob(JobParameters jobParameters) {
         //开启定时任务 定时轮寻 判断应用Service是否被杀死
         //如果被杀死则重启Service

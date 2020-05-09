@@ -44,7 +44,7 @@ public class BenefitFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.benefit_fragment,null);
-        System.out.println("============好多次??");
+       // System.out.println("============好多次??");
         intView();
         intData();
         return view;

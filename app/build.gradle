@@ -11,7 +11,21 @@ android {
         versionName "1.0"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk{
+            moduleName "hello_jni"
+            abiFilters 'armeabi-v7a','arm64-v8a','x86','x86_64'
+        }
+
+
+
     }
+    sourceSets { main { jni.srcDirs = [] } }
+    externalNativeBuild {
+        ndkBuild {
+            path 'src/main/jni/Android.mk'
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false

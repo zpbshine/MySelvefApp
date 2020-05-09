@@ -2,6 +2,9 @@ package com.example.administrator.myselvefapp.Activity;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
+
+import com.example.administrator.myselvefapp.service.MyService;
 
 
 /**
@@ -12,6 +15,7 @@ public class MyApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
     }
 
 }

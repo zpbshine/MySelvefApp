@@ -75,6 +75,7 @@ public class RegActivity extends BaseActivity implements View.OnClickListener {
                 //访问注册接口
                // myApp.testif = "no";
                 //showWaitingDialog();
+                finish();
                 String phone = etRegPhone.getText().toString();
                 String pwd = etRegPwd.getText().toString();
                 if (!TextUtils.isEmpty(phone) && !TextUtils.isEmpty(pwd)) {

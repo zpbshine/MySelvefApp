@@ -39,6 +39,7 @@ public class StepService extends Service {
     public void onCreate() {
         System.out.println("StepService===onCreate");
         super.onCreate();
+
     }
 
     @Override
@@ -49,7 +50,7 @@ public class StepService extends Service {
             @Override
             public void run() {
 
-                System.out.println("连接蓝牙成功===");
+                //System.out.println("连接蓝牙成功===");
 
             }
         };

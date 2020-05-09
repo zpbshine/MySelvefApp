@@ -26,7 +26,6 @@ public class Page1Fragment extends BaseFragment{
     private  String[]  TITLES={"特惠","新闻","新政","交友"};
     private  Fragment[]   FRAGMENTS=new Fragment[]{new BenefitFragment(),new Benefit1Fragment(),new Benefit2Fragment(),new Benefit3Fragment()};
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

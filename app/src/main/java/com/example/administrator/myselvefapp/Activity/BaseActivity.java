@@ -42,7 +42,7 @@ public class BaseActivity  extends AppCompatActivity {
         intentFilter.addAction("com.example.administrator.myselvefapp");
         LocalBroadcastManager.getInstance(this).registerReceiver(myReceiver, intentFilter);
 
-        System.out.println("myreciver注册了吗======"+myReceiver);
+        //System.out.println("myreciver注册了吗======"+myReceiver);
         initView();
         initData();
     }

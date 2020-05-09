@@ -1,7 +1,10 @@
 package com.example.administrator.myselvefapp.Activity;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Build;
+import android.os.IBinder;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -17,6 +20,7 @@ import com.example.administrator.myselvefapp.fragment.Page3Fragment;
 import com.example.administrator.myselvefapp.fragment.Page4Fragment;
 import com.example.administrator.myselvefapp.service.GuardService;
 import com.example.administrator.myselvefapp.service.JobWakeUpService;
+import com.example.administrator.myselvefapp.service.MyService;
 import com.example.administrator.myselvefapp.service.StepService;
 
 import java.util.ArrayList;
@@ -125,7 +129,19 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     @Override
     public void initData() {
         //这里测试一下service保活
-        startAllServices();
+//        startAllServices();
+        startService(new Intent(this, MyService.class));
+        //构建绑定服务的Intent对象
+//        Intent bindIntent = new Intent(this, MyService.class);
+//        //调用bindService()方法,以此停止服务
+//
+//        bindService(bindIntent,connection,BIND_AUTO_CREATE);
+        //参数说明
+        //第一个参数:Intent对象
+        //第二个参数:上面创建的Serviceconnection实例
+        //第三个参数:标志位
+        //这里传入BIND_AUTO_CREATE表示在Activity和Service建立关联后自动创建Service
+        //这会使得MyService中的onCreate()方法得到执行，但onStartCommand()方法不会执行
     }
 
     /**
@@ -134,11 +150,32 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private void startAllServices()
     {
         System.out.println("startAllServices=======");
-        startService(new Intent(this, StepService.class));
+//        Intent intent = new Intent("com.example.administrator.myselvefapp.service.ProcessConnection");
+//        intent.setPackage("com.example.administrator.myselvefapp.service");
+        startService(new Intent(this,StepService.class));
         startService(new Intent(this, GuardService.class));
         if(Build.VERSION.SDK_INT >=Build.VERSION_CODES.LOLLIPOP) {
             //版本必须大于5.0
             startService(new Intent(this, JobWakeUpService.class));
         }
     }
+    //创建ServiceConnection的匿名类
+    private ServiceConnection connection = new ServiceConnection() {
+
+        //重写onServiceConnected()方法和onServiceDisconnected()方法
+        //在Activity与Service建立关联和解除关联的时候调用
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+        }
+
+        //在Activity与Service解除关联的时候调用
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            //实例化Service的内部类myBinder
+            //通过向下转型得到了MyBinder的实例
+//            myBinder = (MyService.MyBinder) service;
+//            //在Activity调用Service类的方法
+//            myBinder.service_connect_Activity();
+        }
+    };
 }

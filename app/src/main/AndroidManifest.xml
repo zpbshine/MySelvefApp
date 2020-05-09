@@ -7,11 +7,13 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 
     <application
@@ -23,11 +25,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activity.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Activity.RegActivity">
 
@@ -35,46 +33,64 @@
         <activity android:name=".Activity.LoginActivity">
 
         </activity>
+        <activity android:name=".Activity.TestHandlerThreadActivity">
+
+        </activity>
+        <activity android:name=".Activity.Thread1Activity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activity.Thread2Activity"></activity>
 
 
-        <service android:name=".service.StepService"
-            android:process="istep.service"
-        >
-        <intent-filter android:priority="1000">
-            <!-- 系统启动完成后会调用-->
-            <action android:name="android.intent.action.BOOT_COMPLETED"/>
-            <action android:name="android.intent.action.DATE_CHANGED"/>
-            <action android:name="android.intent.action.MEDIA_MOUNTED" />
-            <action android:name="android.intent.action.USER_PRESENT" />
-            <action android:name="android.intent.action.ACTION_TIME_TICK" />
-            <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
-            <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
-        </intent-filter>
-    </service>
+        <service
+            android:name=".service.StepService"
+            android:exported="true"
+            android:process=":remote">
+            <intent-filter android:priority="1000">
+                <!-- 系统启动完成后会调用-->
+                <action android:name="com.example.administrator.myselvefapp.service.ProcessConnection" />
+                <!--<action android:name="android.intent.action.BOOT_COMPLETED"/>-->
+                <!--<action android:name="android.intent.action.DATE_CHANGED"/>-->
+                <!--<action android:name="android.intent.action.MEDIA_MOUNTED" />-->
+                <!--<action android:name="android.intent.action.USER_PRESENT" />-->
+                <!--<action android:name="android.intent.action.ACTION_TIME_TICK" />-->
+                <!--<action android:name="android.intent.action.ACTION_POWER_CONNECTED" />-->
+                <!--<action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />-->
+            </intent-filter>
+        </service>
 
 
-    <service android:name=".service.GuardService"
-        android:process=":GuardService">
-        <intent-filter >
-            <!-- 系统启动完成后会调用-->
-            <action android:name="android.intent.action.BOOT_COMPLETED"/>
-            <action android:name="android.intent.action.DATE_CHANGED"/>
-            <action android:name="android.intent.action.MEDIA_MOUNTED" />
-            <action android:name="android.intent.action.USER_PRESENT" />
-            <action android:name="android.intent.action.ACTION_TIME_TICK" />
-            <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
-            <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
-        </intent-filter>
-    </service>
-        <service android:name=".service.JobWakeUpService"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:exported="true"></service>
+        <service
+            android:name=".service.GuardService"
+            android:process=":GuardService">
+            <intent-filter>
+                <!-- 系统启动完成后会调用-->
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.DATE_CHANGED" />
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.intent.action.ACTION_TIME_TICK" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".service.JobWakeUpService"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE"></service>
 
         <receiver android:name=".receiver.mReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+        <service android:name=".service.MyService"
+            >
+        </service>
     </application>
 
 </manifest>

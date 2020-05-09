@@ -1,13 +1,26 @@
 package com.example.administrator.myselvefapp.Activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.PixelFormat;
+import android.hardware.display.DisplayManager;
+import android.hardware.display.VirtualDisplay;
+import android.media.Image;
+import android.media.ImageReader;
+import android.media.projection.MediaProjection;
+import android.media.projection.MediaProjectionManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -15,7 +28,14 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Display;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -25,6 +45,7 @@ import android.widget.Toast;
 import com.example.administrator.myselvefapp.R;
 import com.example.administrator.myselvefapp.contents.AppInterface;
 import com.example.administrator.myselvefapp.utils.IntentUtil;
+import com.example.administrator.myselvefapp.utils.MyTimerTask;
 import com.example.administrator.myselvefapp.utils.SDcardUtils;
 import com.example.administrator.myselvefapp.utils.ToastUtil;
 import com.liulishuo.filedownloader.BaseDownloadTask;
@@ -39,6 +60,8 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import okhttp3.Call;
 
@@ -52,12 +75,55 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             "android.permission.WRITE_EXTERNAL_STORAGE" };
     private ImageView imageView;
     private ArrayList<Byte> arrBytes = new ArrayList<>();
+    private Timer m_timer1;
+    private TimerTask m_timerTask1;
+
+    // 步骤1:加载生成的so库文件
+    // 注意要跟.so库文件名相同
+    static {
+
+        System.loadLibrary("hello_jni");
+    }
+
+    // 步骤2:定义在JNI中实现的方法
+    public native String getFromJNI();
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        m_timer1 = new Timer();
+//        m_timerTask1 = new TimerTask() {
+//            @Override
+//            public void run() {
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        System.out.println("always exit222=====");
+//                        tv_percent.setText("wwwwwwwww");
+//                        System.out.println("always exit333====="+tv_percent.getText().toString());
+//                    }
+//                });
+//                System.out.println("always exit=====");
+//            }
+//        };
+//        m_timer1.schedule(m_timerTask1, 0, 2000);
 
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (m_timer1 != null) {
+            m_timer1.cancel();
+            m_timer1 = null;
+        }
+        if (m_timerTask1 != null) {
+            m_timerTask1.cancel();
+            m_timerTask1 = null;
+        }
+    }
+
     @Override
     public int getViewLayout() {
         return R.layout.activity_login;
@@ -181,18 +247,45 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     SDcardUtils.jieya(imageView);}
     } }
 
-
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.main, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.iv_delPhone:
-                etPhone.setText("");
+                etPhone.setText(getFromJNI());
+
+
                 break;
             case R.id.iv_delPwd:
                 etPwd.setText("");
                 break;
             case R.id.Btn_login:
                 //点击登录
+//                final GlobalScreenshot screenshot = new GlobalScreenshot(this);
+//                screenshot.takeScreenshot(getWindow().getDecorView(), new Runnable() {
+//                    @Override
+//                    public void run() {
+//
+//                    }
+//                }, true, true);
+
 
                 //发送异地登录广播
                 Intent intent=new Intent("com.example.administrator.myselvefapp");
@@ -244,11 +337,48 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             case R.id.Btn_reg:
                 //跳到注册页面
                 startActivity(IntentUtil.getRegIntent(this));
+                finish();
                 break;
             case R.id.Btn_forget_pwd:
                 ToastUtil.showShortToast(this,"跳到忘记密码页面");
                 break;
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && data != null) {
+            parseData(data);
+        }
+    }
+    @SuppressLint("NewApi")
+    private void parseData(Intent data){
+//        MediaProjection mMediaProjection = (MediaProjectionManager)getSystemService(
+//                Context.MEDIA_PROJECTION_SERVICE).getMediaProjection(Activity.RESULT_OK,data);
+        MediaProjectionManager mediaProjectionManager = (MediaProjectionManager) getSystemService(Context.MEDIA_PROJECTION_SERVICE);
+        MediaProjection mMediaProjection =mediaProjectionManager.getMediaProjection(Activity.RESULT_OK,data);
+        final ImageReader mImageReader = ImageReader.newInstance(
+                1080,
+                1920,
+                PixelFormat.RGBA_8888,1);
+         VirtualDisplay mVirtualDisplay = mMediaProjection.createVirtualDisplay("screen-mirror",
+                1080,
+                1920,
+                Resources.getSystem().getDisplayMetrics().densityDpi,
+                DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,
+                mImageReader.getSurface(), null, null);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Image image = mImageReader.acquireLatestImage();
+                // TODO 将image保存到本地即可
+            }
+        }, 300);
+        mVirtualDisplay.release();
+        mVirtualDisplay = null;
+    }
+
 
 }
