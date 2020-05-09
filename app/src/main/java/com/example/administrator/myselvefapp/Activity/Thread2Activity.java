@@ -28,6 +28,7 @@ public class Thread2Activity extends Activity {
     protected void onResume() {
         super.onResume();
         System.out.println("timer=="+timer+"==timertask==="+timerTask);
+        System.out.println("timer=="+timer+"==timertask==="+timerTask);
 //        if(timer==null||timerTask==null){
 //            timer = new Timer("timer1");
 //            timerTask = new MyTimerTask(tv_ble,this,2);
