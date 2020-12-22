@@ -142,9 +142,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     @Override
-    public int getViewLayout() {
-        return R.layout.activity_login;
+    public View getViewLayout() {
+        View view = View.inflate(myApp,R.layout.activity_login,null);
+        return view;
     }
+
     @Override
     public void initView() {
 

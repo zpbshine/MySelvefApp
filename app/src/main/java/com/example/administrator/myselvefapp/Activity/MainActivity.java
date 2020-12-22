@@ -9,6 +9,7 @@ import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -41,8 +42,9 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private RadioGroup radioGroup;
     private RadioButton radioButton;
     @Override
-    public int getViewLayout() {
-        return R.layout.activity_main;
+    public View getViewLayout() {
+        View view = View.inflate(myApp,R.layout.activity_main,null);
+        return view;
     }
 
     @Override

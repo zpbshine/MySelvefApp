@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/public_title"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#0a1218">
+        <TextView
+            android:id="@+id/tv_base_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="转让"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            android:gravity="center"/>
+
+    </RelativeLayout>
+    <FrameLayout
+        android:id="@+id/fl_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
+
+</LinearLayout>

@@ -40,8 +40,9 @@ public class RegActivity extends BaseActivity implements View.OnClickListener {
     }
 
     @Override
-    public int getViewLayout() {
-        return R.layout.activity_reg;
+    public View getViewLayout() {
+        View view = View.inflate(myApp,R.layout.activity_reg,null);
+        return view;
     }
 @Override
     public void initView() {

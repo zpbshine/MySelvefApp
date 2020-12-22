@@ -13,7 +13,10 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
+import com.example.administrator.myselvefapp.R;
 import com.example.administrator.myselvefapp.bean.UserBean;
 import com.example.administrator.myselvefapp.contents.MyApp;
 import com.example.administrator.myselvefapp.dialog.DialogUtils;
@@ -31,8 +34,13 @@ public class BaseActivity  extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(getViewLayout());
+        setContentView(R.layout.activity_base);
         myApp = (MyApp) getApplication();
+
+        FrameLayout fl_container=findViewById(R.id.fl_container);
+        fl_container.removeAllViews();
+        fl_container.addView(getViewLayout());
+        //ViewGroup viewGroup = findViewById(android.R.id.content);
 
         basecurt =this;
         //注册异地登录的广播接收器
@@ -43,6 +51,7 @@ public class BaseActivity  extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this).registerReceiver(myReceiver, intentFilter);
 
         //System.out.println("myreciver注册了吗======"+myReceiver);
+
         initView();
         initData();
     }
@@ -106,8 +115,8 @@ public class BaseActivity  extends AppCompatActivity {
     关联布局
      */
 
-    public int getViewLayout() {
-        return 0;
+    public View getViewLayout() {
+        return null;
     }
 
     @Override
