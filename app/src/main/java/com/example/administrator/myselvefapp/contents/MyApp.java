@@ -14,6 +14,7 @@ import java.util.Timer;
 public class MyApp extends Application {
     public Timer timer;
     public MyTimerTask timerTask;
+    public String testhh = "zzz";
     @Override
     public void onCreate() {
         super.onCreate();
@@ -21,11 +22,11 @@ public class MyApp extends Application {
        // Hawk.init(this).build();
         // 不耗时，做一些简单初始化准备工作，不会启动下载进程
         FileDownloader.setup(this);
-        if(timer==null||timerTask==null){
-            timer = new Timer("timer1");
-            timerTask = new MyTimerTask(getApplicationContext(),2);
-            timer.schedule(timerTask, 0, 2000);
-        }
+//        if(timer==null||timerTask==null){
+//            timer = new Timer("timer1");
+//            timerTask = new MyTimerTask(getApplicationContext(),2);
+//            timer.schedule(timerTask, 0, 2000);
+//        }
     }
 
 }

@@ -70,37 +70,38 @@ public class Benefit3Fragment extends BaseFragment {
     private void getDataFromNet() {
         benifitBeens.clear();
 
-        OkHttpUtils.post()
-                .url(AppInterface.GET_BENIFIT_GOODS)
-                .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-
-                    }
-
-                    @Override
-                    public void onResponse(String response, int id) {
-
-                        String json = response.toString();
-                        try {
-                            JSONArray jsonArray = new JSONArray(json);
-                            System.out.println(jsonArray.length());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                        if (gson == null){
-                            gson = new Gson();
-                        }
-                        Type lt=new TypeToken<List<BenifitBean>>(){}.getType();
-                        List<BenifitBean> beans=gson.fromJson(json,lt);
-                        benifitBeens.addAll(beans);
-                        if (myAdapter != null){
-                            myAdapter.notifyDataSetChanged();
-                        }
-                    }
-                });
+        System.out.println("上传视频文件===");
+//        OkHttpUtils.post()
+//                .url(AppInterface.GET_BENIFIT_GOODS)
+//                .build()
+//                .execute(new StringCallback() {
+//                    @Override
+//                    public void onError(Call call, Exception e, int id) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onResponse(String response, int id) {
+//
+//                        String json = response.toString();
+//                        try {
+//                            JSONArray jsonArray = new JSONArray(json);
+//                            System.out.println(jsonArray.length());
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                        if (gson == null){
+//                            gson = new Gson();
+//                        }
+//                        Type lt=new TypeToken<List<BenifitBean>>(){}.getType();
+//                        List<BenifitBean> beans=gson.fromJson(json,lt);
+//                        benifitBeens.addAll(beans);
+//                        if (myAdapter != null){
+//                            myAdapter.notifyDataSetChanged();
+//                        }
+//                    }
+//                });
     }
     private class MyAdapter extends BaseAdapter{
 

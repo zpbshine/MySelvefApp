@@ -82,6 +82,13 @@ public class BaseActivity  extends AppCompatActivity {
         }
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        System.out.println("baseactivity=========="+myApp.testhh);
+    }
+
     /*
     初始化数据
      */

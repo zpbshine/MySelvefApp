@@ -130,7 +130,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     public void initData() {
         //这里测试一下service保活
 //        startAllServices();
-        startService(new Intent(this, MyService.class));
+        //startService(new Intent(this, MyService.class));
         //构建绑定服务的Intent对象
 //        Intent bindIntent = new Intent(this, MyService.class);
 //        //调用bindService()方法,以此停止服务
@@ -142,6 +142,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         //第三个参数:标志位
         //这里传入BIND_AUTO_CREATE表示在Activity和Service建立关联后自动创建Service
         //这会使得MyService中的onCreate()方法得到执行，但onStartCommand()方法不会执行
+
+
     }
 
     /**

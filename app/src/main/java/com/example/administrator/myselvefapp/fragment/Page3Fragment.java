@@ -1,11 +1,14 @@
 package com.example.administrator.myselvefapp.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.projection.MediaProjectionManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +53,10 @@ public class Page3Fragment extends BaseFragment {
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                                //发送应用内广播
+
+                //发送本地广播。
 
 //// URL模板
 //http://fy.iciba.com/ajax.php

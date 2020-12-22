@@ -49,7 +49,9 @@ public class Page1Fragment extends BaseFragment{
             tab_index.addTab(tab);
         }
         vp_index.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tab_index));
-        tab_index.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(vp_index));
+        //tab_index.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(vp_index));
+        tab_index.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(vp_index));
+
     }
 
     @Override

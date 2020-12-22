@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -36,6 +37,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -44,6 +47,8 @@ import android.widget.Toast;
 
 import com.example.administrator.myselvefapp.R;
 import com.example.administrator.myselvefapp.contents.AppInterface;
+import com.example.administrator.myselvefapp.contents.MyApp;
+import com.example.administrator.myselvefapp.dialog.DialogUtils;
 import com.example.administrator.myselvefapp.utils.IntentUtil;
 import com.example.administrator.myselvefapp.utils.MyTimerTask;
 import com.example.administrator.myselvefapp.utils.SDcardUtils;
@@ -55,6 +60,7 @@ import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.FileCallBack;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -110,6 +116,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 //        m_timer1.schedule(m_timerTask1, 0, 2000);
 
     }
+    public String hh="";
+    private void modifyHH(final EditText et) {
+
+        DialogUtils.showpublicDialog(LoginActivity.this, "确定要开通吗", "确定", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                et.setText("功能开通");
+                //System.out.println("==========="+hh);
+            }
+        });
+    }
 
     @Override
     protected void onDestroy() {
@@ -130,6 +147,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
     @Override
     public void initView() {
+
+
+
+
         etPhone = (EditText) findViewById(R.id.EditText_phone);
         etPwd = (EditText) findViewById(R.id.EditText_pwd);
         ivDelPwd = (ImageView) findViewById(R.id.iv_delPwd);
@@ -142,6 +163,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         tv_percent = findViewById(R.id.tv_percent);
         imageView = findViewById(R.id.iv);
 
+        //tvReg.setVisibility(View.GONE);
+
+        modifyHH(etPwd);
+
+
         final byte[] mybytes = new byte[1024];
         mybytes[0]=0x00;
         mybytes[1]=0x01;
@@ -150,16 +176,23 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         findViewById(R.id.btn_show).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                arrBytes.clear();
-                for (int i = 0; i < 3; i++) {
-                    arrBytes.add(mybytes[i]);
-                }
-                System.out.println(arrBytes.size());
-                System.out.println(arrBytes.get(0));
-                System.out.println(arrBytes.get(1));
-                System.out.println(arrBytes.get(2));
-                boolean istrue=arrBytes.get(0)==mybytes[0];
-                System.out.println(istrue);
+
+               int whichBox =  showCheckBoxDialog(LoginActivity.this);
+                System.out.println("什么时候走这里==="+whichBox);
+
+
+                myApp.testhh="hhhhhhh";
+
+//                arrBytes.clear();
+//                for (int i = 0; i < 3; i++) {
+//                    arrBytes.add(mybytes[i]);
+//                }
+//                System.out.println(arrBytes.size());
+//                System.out.println(arrBytes.get(0));
+//                System.out.println(arrBytes.get(1));
+//                System.out.println(arrBytes.get(2));
+//                boolean istrue=arrBytes.get(0)==mybytes[0];
+//                System.out.println(istrue);
 
 
 //                if (ActivityCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -232,6 +265,92 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
 
+    private int isBoxChecked;
+    public int showCheckBoxDialog(Context ctx) {
+        //R.style.***一定要写，不然不能充满整个屏宽，引用R.style.AppTheme就可以
+        final Dialog dialog = new Dialog(ctx, R.style.Dialog);
+        View view = View.inflate(ctx, R.layout.popup_checked, null);
+        Window window = dialog.getWindow();
+        window.setGravity(Gravity.CENTER);
+        //设置dialog弹出时的动画效果，从屏幕底部向上弹出
+        //window.setWindowAnimations(R.style.dialogStyle);
+        //window.getDecorView().setPadding(0, 0, 0, 0);
+
+        //设置dialog弹出后会点击屏幕或物理返回键，dialog不消失
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
+        window.setContentView(view);
+
+        //获得window窗口的属性
+        WindowManager.LayoutParams params = window.getAttributes();
+        //设置窗口宽度为充满全屏
+        params.width = WindowManager.LayoutParams.MATCH_PARENT;//如果不设置,可能部分机型出现左右有空隙,也就是产生margin的感觉
+        //设置窗口高度为包裹内容
+        params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        //params.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE;//显示dialog的时候,就显示软键盘
+        params.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;//就是这个属性导致window后所有的东西都成暗淡
+        params.dimAmount = 0.5f;//设置对话框的透明程度背景(非布局的透明度)
+        //将设置好的属性set回去
+        window.setAttributes(params);
+
+
+        //msgtv.setText("车辆：T02753\n 授权时间：2018 12 14 - 2018 9 14 \n 电话：13189291916 \n 权限：开关锁/寻车，开关锁/寻车，开关锁/寻车，开关锁/寻车，开关锁/寻车");
+        Button contacts_open,contacts_cancel;
+
+        final CheckBox checkbox1 = (CheckBox) view.findViewById(R.id.checkbox1);
+        final CheckBox checkbox2 = (CheckBox) view.findViewById(R.id.checkbox2);
+        final CheckBox checkbox3 = (CheckBox) view.findViewById(R.id.checkbox3);
+
+        checkbox2.setChecked(true);
+        checkbox1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    checkbox2.setChecked(false);
+                    checkbox3.setChecked(false);
+                    isBoxChecked=1;
+                }
+            }
+        });
+        checkbox2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    checkbox1.setChecked(false);
+                    checkbox3.setChecked(false);
+                    isBoxChecked=2;
+                }
+            }
+        });
+        checkbox3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    checkbox2.setChecked(false);
+                    checkbox1.setChecked(false);
+                    isBoxChecked=3;
+                }
+            }
+        });
+        contacts_open = (Button) view.findViewById(R.id.popup_ok);
+        contacts_open.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+            }
+        });
+        contacts_cancel = (Button) view.findViewById(R.id.popup_cancel);
+        contacts_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        return isBoxChecked;
+    }
+
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode){
@@ -277,7 +396,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 etPwd.setText("");
                 break;
             case R.id.Btn_login:
+
                 //点击登录
+                Intent intent2=new Intent(this,MainActivity.class);
+                startActivity(intent2);
 //                final GlobalScreenshot screenshot = new GlobalScreenshot(this);
 //                screenshot.takeScreenshot(getWindow().getDecorView(), new Runnable() {
 //                    @Override
@@ -340,6 +462,104 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 finish();
                 break;
             case R.id.Btn_forget_pwd:
+                String response = "{\n" +
+                        "    \"data\": {\n" +
+                        "        \"time\": 1602750117,\n" +
+                        "        \"config\": [\n" +
+                        "            {\n" +
+                        "                \"name\": \"锁车时自动升窗\",\n" +
+                        "                \"type\": \"radio\",\n" +
+                        "                \"value\": 255\n" +
+                        "            },\n" +
+                        "            {\n" +
+                        "                \"name\": \"挂出P档自动落锁\",\n" +
+                        "                \"type\": \"radio\",\n" +
+                        "                \"value\": 0\n" +
+                        "            },\n" +
+                        "            {\n" +
+                        "                \"name\": \"熄火时自动解锁\",\n" +
+                        "                \"type\": \"radio\",\n" +
+                        "                \"value\": 1\n" +
+                        "            },\n" +
+                        "            {\n" +
+                        "                \"name\": \"行车时自动落锁\",\n" +
+                        "                \"type\": \"radio\",\n" +
+                        "                \"value\": 0\n" +
+                        "            },\n" +
+                        "            {\n" +
+                        "                \"name\": \"解防时喇叭鸣叫提示\",\n" +
+                        "                \"type\": \"radio\",\n" +
+                        "                \"value\": 1\n" +
+                        "            },\n" +
+                        "            {\n" +
+                        "                \"name\": \"设防时喇叭鸣叫提示\",\n" +
+                        "                \"type\": \"radio\",\n" +
+                        "                \"value\": 0\n" +
+                        "            },\n" +
+                        "            {\n" +
+                        "                \"name\": \"远程启动时鸣叫提示\",\n" +
+                        "                \"type\": \"radio\",\n" +
+                        "                \"value\": 1\n" +
+                        "            },\n" +
+                        "            {\n" +
+                        "                \"name\": \"远程熄火时鸣叫提示\",\n" +
+                        "                \"type\": \"radio\",\n" +
+                        "                \"value\": 1\n" +
+                        "            },\n" +
+                        "            {\n" +
+                        "                \"name\": \"遥控启动功能\",\n" +
+                        "                \"type\": \"radio\",\n" +
+                        "                \"value\": 1\n" +
+                        "            },\n" +
+                        "            {\n" +
+                        "                \"name\": \"感应开落锁\",\n" +
+                        "                \"type\": \"radio\",\n" +
+                        "                \"value\": 0\n" +
+                        "            },\n" +
+                        "            {\n" +
+                        "                \"name\": \"钥匙异常提示\",\n" +
+                        "                \"type\": \"radio\",\n" +
+                        "                \"value\": 1\n" +
+                        "            },\n" +
+                        "            {\n" +
+                        "                \"name\": \"允许启动时间\",\n" +
+                        "                \"type\": \"select\",\n" +
+                        "                \"value\": {\n" +
+                        "                    \"1\": {\n" +
+                        "                        \"type\": \"30秒\",\n" +
+                        "                        \"default\": 0\n" +
+                        "                    },\n" +
+                        "                    \"4\": {\n" +
+                        "                        \"type\": \"2分钟\",\n" +
+                        "                        \"default\": 1\n" +
+                        "                    },\n" +
+                        "                    \"10\": {\n" +
+                        "                        \"type\": \"5分钟\",\n" +
+                        "                        \"default\": 0\n" +
+                        "                    }\n" +
+                        "                }\n" +
+                        "            }\n" +
+                        "        ]\n" +
+                        "    },\n" +
+                        "    \"status\": 200\n" +
+                        "}";
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    JSONObject data = obj.optJSONObject("data");
+                    //System.out.println("data====="+data);
+                    JSONArray jsonArray = data.optJSONArray("config");
+                    for (int i = 0; i <jsonArray.length() ; i++) {
+                        JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+                        System.out.println("==="+jsonObject.opt("value"));
+
+                        if(jsonObject.opt("value").toString().startsWith("{")){
+                            JSONObject jsonObject1 = (JSONObject) jsonObject.opt("value");
+                            System.out.println("获得键===="+jsonObject1.names());
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 ToastUtil.showShortToast(this,"跳到忘记密码页面");
                 break;
         }
