@@ -37,7 +37,6 @@ public class BaseActivity  extends AppCompatActivity {
         setContentView(R.layout.activity_base);
         myApp = (MyApp) getApplication();
 
-
         FrameLayout fl_container=findViewById(R.id.fl_container);
         fl_container.removeAllViews();
         fl_container.addView(getViewLayout());
